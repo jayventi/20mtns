@@ -17,5 +17,5 @@ wp-content/plugins/*
 # !wp-content/plugins/my-directory-plugin/
  
 # Ignore everything in the "themes" directory, except the themes you specify
-wp-content/themes/*
-!wp-content/themes/mesmerize
+#wp-content/themes/*
+#!wp-content/themes/mesmerize
