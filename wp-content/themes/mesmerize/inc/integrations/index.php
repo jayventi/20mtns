@@ -27,10 +27,10 @@ function mesmerize_load_integration_modules()
         $module = wp_normalize_path($module);
 
         if (strpos($module, $normmalizedABSPATH) !== 0) {
-            mesmerize_require("{$module}/index.php");
+            mesmerize_require("{$module}/integration.php");
         } else {
-            if (file_exists("{$module}/index.php")) {
-                require "{$module}/index.php";
+            if (file_exists("{$module}/integration.php")) {
+                require "{$module}/integration.php";
             }
         }
 

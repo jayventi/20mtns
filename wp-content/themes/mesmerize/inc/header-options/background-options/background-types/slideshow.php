@@ -13,8 +13,11 @@ function mesmerize_header_background_slideshow($types)
 
 add_action("mesmerize_background", function ($bg_type, $inner, $prefix) {
     if ($bg_type == 'slideshow') {
-        $js = get_template_directory_uri() . "/assets/js/libs/jquery.backstretch.js";
-        wp_enqueue_script(mesmerize_get_text_domain() . '-backstretch', $js, array('jquery'), false, true);
+
+        if ( ! apply_filters('mesmerize_load_bundled_version', true)) {
+            $js = get_template_directory_uri() . "/assets/js/libs/jquery.backstretch.js";
+            wp_enqueue_script(mesmerize_get_text_domain() . '-backstretch', $js, array('jquery'), false, true);
+        }
         add_action('wp_footer', "mesmerize_" . $prefix . '_slideshow_script');
     }
 }, 1, 3);
@@ -153,5 +156,11 @@ function mesmerize_add_slideshow_scripts($inner = false)
         'animateFirst'       => false,
     );
 
-    wp_localize_script($textDomain . '-backstretch', 'mesmerize_backstretch', $mesmerize_jssettings);
+    $handle = $textDomain . "-backstretch";
+
+    if (apply_filters('mesmerize_load_bundled_version', true)) {
+        $handle = $textDomain . "-theme";
+    }
+
+    wp_localize_script($handle, 'mesmerize_backstretch', $mesmerize_jssettings);
 }

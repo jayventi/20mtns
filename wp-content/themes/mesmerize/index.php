@@ -1,7 +1,7 @@
 <?php mesmerize_get_header(); ?>
 
     <div class="content blog-page">
-        <div class="<?php mesmerize_page_content_wrapper_class(); ?>">
+        <div class="gridContainer <?php mesmerize_page_content_wrapper_class(); ?>">
             <div class="row">
                 <div class="col-xs-12 <?php mesmerize_posts_wrapper_class(); ?>">
                     <div class="post-list row">

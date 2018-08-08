@@ -4,7 +4,7 @@ Theme URI:https://extendthemes.com/go/mesmerize-home/
 Author: Horea Radu
 Author URI:https://extendthemes.com/
 Description: Mesmerize is an incredibly flexible, multipurpose WordPress theme that can help you create an amazing website easier than ever, by drag and drop. It comes with a predesigned home page, 5 header designs and over 30 ready to use content sections that you can easily customize. It also has lots of customization options (video background, slideshow background, header content types, gradient overlays, etc) that will help you create a beautiful, unique website in no time. Mesmerize is responsive so it works on mobile devices out of the box and it is also WooCommerce ready. DEMO: https://extendthemes.com/go/mesmerize-demos/
-Version: 1.2.2
+Version: 1.5.52
 License: GNU General Public License version 3
 License URI: http://www.opensource.org/licenses/gpl-license.php GPL v3.0 (or later)
 Tags: entertainment, food-and-drink, portfolio, one-column, two-columns, right-sidebar, grid-layout, custom-header, custom-menu, custom-logo, full-width-template, theme-options, translation-ready, featured-images, threaded-comments
@@ -562,6 +562,30 @@ i.fa.icon.bordered.color-black, i.fa.icon.color-black.card[class*="bottom-border
 
 i.fa.icon.reverse.color-black {
   background-color: #4a4a4a;
+}
+
+.grad-180-transparent-color1 {
+  background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(3, 169, 244, 0.5) 82.5%, rgba(3, 169, 244, 0.8) 100%);
+}
+
+.grad-180-transparent-color2 {
+  background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(255, 152, 0, 0.5) 82.5%, rgba(255, 152, 0, 0.8) 100%);
+}
+
+.grad-180-transparent-color3 {
+  background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(251, 192, 45, 0.5) 82.5%, rgba(251, 192, 45, 0.8) 100%);
+}
+
+.grad-180-transparent-color4 {
+  background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(140, 35, 159, 0.5) 82.5%, rgba(140, 35, 159, 0.8) 100%);
+}
+
+.grad-180-transparent-color5 {
+  background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(255, 51, 105, 0.5) 82.5%, rgba(255, 51, 105, 0.8) 100%);
+}
+
+.grad-180-transparent-color6 {
+  background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(52, 58, 64, 0.5) 82.5%, rgba(52, 58, 64, 0.8) 100%);
 }
 
 /*
@@ -1747,7 +1771,7 @@ select {
   width: 100%;
   font-family: inherit;
   font-size: 1rem;
-  height: 40px;
+  height: 2.5rem;
   outline: none;
   vertical-align: middle;
   background-color: #fff;
@@ -1764,7 +1788,7 @@ textarea.comment-reply-link,
 select.small,
 select.comment-meta,
 select.comment-reply-link {
-  height: 36px;
+  height: 2.25rem;
   font-size: 0.875rem;
   padding: 0 12px;
   border-radius: 3px;
@@ -1773,7 +1797,7 @@ select.comment-reply-link {
 input.big,
 textarea.big,
 select.big {
-  height: 48px;
+  height: 3rem;
   font-size: 1.125rem;
   padding: 0 12px;
   border-radius: 3px;
@@ -1785,7 +1809,7 @@ select:focus:not(.button):not([type=submit]) {
   outline: none;
   background-color: #fff;
   border-color: #1c86f2;
-  box-shadow: 0 0 1px #1c86f2 inset;
+  box-shadow: 0 0 0 1px #1c86f2 inset;
 }
 
 input.error,
@@ -1876,6 +1900,12 @@ input[type="checkbox"] {
   width: auto;
   height: auto;
   padding: 0;
+}
+
+input[type=date] {
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
 }
 
 label {
@@ -2022,6 +2052,15 @@ form,
 .append span {
   border-left: none;
   border-radius: 0 3px 3px 0;
+}
+
+input[type=date] {
+  line-height: 2.5rem;
+  -moz-appearance: textfield;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+  display: none;
 }
 
 /*
@@ -6972,8 +7011,15 @@ a.post-list-item-thumb {
   display: block;
 }
 
+.post-thumbnail svg,
 .post-thumbnail img {
   width: 100%;
+}
+
+.post-thumbnail svg {
+  height: auto;
+  margin-bottom: 0;
+  display: block;
 }
 
 .post-excerpt > :last-child,
@@ -7666,6 +7712,8 @@ body {
 
 [data-parallax-depth] {
   background-attachment: fixed;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 [data-parallax-depth]:before, [data-parallax-depth]:after {
@@ -8398,10 +8446,12 @@ svg.section-separator-bottom:not([data-separator-name*="-negative"]) {
 
 div.section-separator-bottom {
   bottom: 0px;
+  margin-bottom: -1px;
 }
 
 div.section-separator-top {
   top: 0px;
+  margin-top: -1px;
 }
 
 .content-placeholder-p {
@@ -9127,6 +9177,38 @@ div.section-separator-bottom {
   background-color: #ffffff;
 }
 
+.card.bg-color1 {
+  background-color: #03a9f4;
+}
+
+.card.bg-color2 {
+  background-color: #FF9800;
+}
+
+.card.bg-color3 {
+  background-color: #fbc02d;
+}
+
+.card.bg-color4 {
+  background-color: #8c239f;
+}
+
+.card.bg-color5 {
+  background-color: #ff3369;
+}
+
+.card.bg-color6 {
+  background-color: #343a40;
+}
+
+.card.bg-color-black {
+  background-color: #000000;
+}
+
+.card.bg-color-white {
+  background-color: #ffffff;
+}
+
 [class*="border-color"] {
   border: 2px solid;
 }
@@ -9256,6 +9338,12 @@ dl dt {
 
 .mesmerize-google-maps {
   min-height: 400px;
+}
+
+.mesmerize-google-maps.mesmerize-frame-map {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .contact-form-wrapper {

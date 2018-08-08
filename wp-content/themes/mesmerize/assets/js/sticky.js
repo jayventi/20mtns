@@ -38,7 +38,7 @@
                 useShrink: useShrink,
                 toBottom: toBottom,
                 useNativeSticky: false,
-                always:always
+                always: always
             }
 
             if (useShrink) {
@@ -106,4 +106,4 @@
         $(window).trigger('resize.sticky');
     });
 
-})()
+})();

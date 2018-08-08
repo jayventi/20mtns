@@ -76,10 +76,6 @@ The exceptions to this license are as follows:
 * TinyColor v1.1.2 - https://github.com/bgrins/TinyColor
   Brian Grinstead, MIT License
 
- * Slimdown - A very basic regex-based Markdown parser - https://gist.github.com/jbroadway/2836900
-  Johnny Broadway <johnny@johnnybroadway.com>
-  License: MIT
- 
 * Google Fonts:
 
    Open Sans (https://fonts.google.com/specimen/Open+Sans)
@@ -157,6 +153,9 @@ The exceptions to this license are as follows:
 
     * images/headers/pixabay-girl-2618562.jpg
     Source: https://pixabay.com/en/girl-woman-working-office-business-2618562/
+
+    * images/assets/images/home_page_header-3.jpg
+    Source: https://www.maxpixel.net/Petals-Colorful-Flower-2591093
 
     The following SVG files are the creation of Horea Radu and are distributed under the Creative Commons Zero License, http://creativecommons.org/publicdomain/zero/1.0/
 

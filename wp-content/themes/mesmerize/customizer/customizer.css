@@ -1599,3 +1599,63 @@ li.category-title.closeable {
     height: auto;
     text-transform: uppercase;
 }
+
+#customize-controls li#accordion-section-extendthemes_start_from_demo_site,
+#customize-controls li#accordion-section-extendthemes_start_from_demo_site > h3 {
+    background-color: #55616d;
+    border-left: 0;
+    color: #ffffff;
+    background-image: linear-gradient(140deg, rgb(78, 194, 246) 0%, rgba(69, 58, 148, 0.8) 100%);
+    display: block !important;
+}
+
+#customize-controls li#accordion-section-extendthemes_start_from_demo_site {
+    margin-bottom: 1px;
+    display: list-item !important;
+    height: auto !important;
+}
+
+#customize-controls li#accordion-section-extendthemes_start_from_demo_site:hover,
+#customize-controls li#accordion-section-extendthemes_start_from_demo_site > h3:hover {
+    background-color: #657381;
+    border-left-color: #41bff1;
+}
+
+#customize-controls li#accordion-section-extendthemes_start_from_demo_site > h3:after {
+    color: #ffffff;
+}
+
+li#accordion-section-extendthemes_start_from_demo_site h3:before {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 1;
+    font-family: dashicons;
+    text-decoration: inherit;
+    font-weight: normal;
+    font-style: normal;
+    vertical-align: top;
+    text-align: center;
+    content: "\f547";
+}
+
+#customize-controls li#accordion-section-extendthemes_start_from_demo_site h3:after {
+    display: none;
+}
+
+.customize-control-kirki-color > label {
+    display: block;
+    width: 100%;
+}
+
+.customize-control-kirki-color .customize-control-title {
+    display: inline-block;
+}
+
+.customize-control-kirki-color .sp-replacer {
+    float: right;
+    margin-right: 0px;
+    position: absolute;
+    right: 0px;
+    top: 0;
+}

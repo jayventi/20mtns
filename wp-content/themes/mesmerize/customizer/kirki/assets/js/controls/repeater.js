@@ -602,7 +602,9 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
      * @param newValue Object
      * @param refresh If we want to refresh the previewer or not
      */
-    setValue: function (newValue, refresh, filtering) {
+
+
+    setValue: _.debounce(function (newValue, refresh, filtering) {
 
         'use strict';
 
@@ -627,8 +629,14 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
         }
 
 
+        var value = filteredValue;
+        if (this.params.choices.beforeValueSet && window[this.params.choices.beforeValueSet]) {
+            filteredValue = window[this.params.choices.beforeValueSet].call(this, filteredValue);
+        }
+
         if (window.CP_Customizer) {
             if (window.CP_Customizer.preview.frame()) {
+                filteredValue = CP_Customizer.utils.normalizeValue(filteredValue)
                 this.setting.set(encodeURI(JSON.stringify(filteredValue)));
 
                 if (refresh) {
@@ -638,23 +646,45 @@ wp.customize.controlConstructor.repeater = wp.customize.Control.extend({
                     this.settingField.trigger('change');
 
                 }
+
+
+                var self = this;
+                filteredValue.forEach(function (item, index) {
+
+                    if (!self.rows[index]) {
+                        return;
+                    }
+
+                    var container = self.rows[index].container;
+                    for (var field in item) {
+
+                        var oldValue = container.find('[data-field="' + field + '"]').val();
+                        if (oldValue !== item[field]) {
+                            container.find('[data-field="' + field + '"]').val(item[field]).trigger('change');
+                        }
+                    }
+                });
             } else {
                 this.setting._value = encodeURI(JSON.stringify(filteredValue));
             }
         } else {
-            this.setting.set(encodeURI(JSON.stringify(filteredValue)));
 
-            if (refresh) {
 
-                // Trigger the change event on the hidden field so
-                // previewer refresh the website on Customizer
-                this.settingField.trigger('change');
+            if (wp.customize.previewer.targetWindow.get()) {
+                this.setting.set(encodeURI(JSON.stringify(filteredValue)));
 
+                if (refresh) {
+                    // Trigger the change event on the hidden field so
+                    // previewer refresh the website on Customizer
+                    this.settingField.trigger('change');
+                }
+            } else {
+                this.setting._value = encodeURI(JSON.stringify(filteredValue));
             }
         }
 
 
-    },
+    }, 500),
 
     /**
      * Add a new row to repeater settings based on the structure.

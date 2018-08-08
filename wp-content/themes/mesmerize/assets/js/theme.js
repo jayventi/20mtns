@@ -261,43 +261,6 @@ jQuery(document).ready(function ($) {
     }
 
 
-    var masonry = $(".post-list.row");
-
-    var images = masonry.find('img');
-    var loadedImages = 0;
-
-    var debounceMasonryRefresh = jQuery.debounce(function () {
-        masonry.data().masonry.layout();
-    }, 500);
-
-    function imageLoaded() {
-        loadedImages++;
-        if (images.length === loadedImages && masonry.data().masonry) {
-            masonry.data().masonry.layout();
-        }
-    }
-
-    images.each(function () {
-        $(this).on('load', imageLoaded);
-        debounceMasonryRefresh();
-    });
-
-
-    var items = $(".post-list.row .post-list-item");
-    var index = items.length - 1;
-    items.each(function () {
-        $(this).css({
-            width: $(this).css('max-width')
-        })
-    });
-    if (masonry.length) {
-        masonry.masonry({
-            itemSelector: '.post-list-item',
-            percentPosition: true,
-            columnWidth: '.' + items.eq(index).attr('data-masonry-width')
-        });
-    }
-
     if ($.fn.smoothScrollAnchor) {
         var _$body = $('body');
         $('.header-homepage-arrow-c .header-homepage-arrow').smoothScrollAnchor({
@@ -318,6 +281,67 @@ jQuery(document).ready(function ($) {
     $('.navigation-bar.logo-inside-menu #main_menu > .logo').each(function () {
         $(this).css('width', $(this).find('.text-logo').outerWidth() + 32);
     });
+
+});
+
+
+jQuery(function ($) {
+
+    var doneMasonry = false;
+
+    function doPostsMasonry() {
+
+        if (doneMasonry) {
+            return;
+        }
+        doneMasonry = true;
+        var masonry = $(".post-list.row");
+
+        var images = masonry.find('img');
+        var loadedImages = 0;
+
+        var debounceMasonryRefresh = jQuery.debounce(function () {
+            masonry.data().masonry.layout();
+        }, 500);
+
+        function imageLoaded() {
+            loadedImages++;
+            if (images.length === loadedImages && masonry.data().masonry) {
+                masonry.data().masonry.layout();
+            }
+        }
+
+        images.each(function () {
+            $(this).on('load', imageLoaded);
+            debounceMasonryRefresh();
+        });
+
+
+        var items = $(".post-list.row .post-list-item");
+        var index = items.length - 1;
+        items.each(function () {
+            $(this).css({
+                width: $(this).css('max-width')
+            })
+        });
+        if (masonry.length) {
+            masonry.masonry({
+                itemSelector: '.post-list-item',
+                percentPosition: true,
+                columnWidth: '.' + items.eq(index).attr('data-masonry-width')
+            });
+        }
+    }
+
+    if (window.innerWidth >= 768) {
+        doPostsMasonry();
+    }
+
+    $(window).resize(function () {
+        if (window.innerWidth >= 768) {
+            doPostsMasonry();
+        }
+    })
 
 });
 
@@ -687,29 +711,33 @@ jQuery(function ($) {
 
 
     // customizer binding
+    try {
+        if (parent.CP_Customizer) {
+            parent.CP_Customizer.addModule(function (CP_Customizer) {
+                CP_Customizer.hooks.addAction('after_node_insert', function ($node) {
+                    if ($node.is('[data-countup]')) {
 
-    if (parent.CP_Customizer) {
-        parent.CP_Customizer.addModule(function (CP_Customizer) {
-            CP_Customizer.hooks.addAction('after_node_insert', function ($node) {
-                if ($node.is('[data-countup]')) {
+                        if ($node.closest('.circle-counter').length) {
+                            initCounterCircle($node.closest('.circle-counter'));
+                        }
 
-                    if ($node.closest('.circle-counter').length) {
-                        initCounterCircle($node.closest('.circle-counter'));
+                        initCountUP($node, true);
                     }
 
-                    initCountUP($node, true);
-                }
+                    $node.find('[data-countup]').each(function () {
 
-                $node.find('[data-countup]').each(function () {
+                        if ($(this).closest('.circle-counter').length) {
+                            initCounterCircle($(this).closest('.circle-counter'));
+                        }
 
-                    if ($(this).closest('.circle-counter').length) {
-                        initCounterCircle($(this).closest('.circle-counter'));
-                    }
-
-                    initCountUP($(this), true);
-                })
+                        initCountUP($(this), true);
+                    })
+                });
             });
-        });
+        }
+
+    } catch (e) {
+
     }
 
 })(jQuery);

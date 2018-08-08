@@ -209,7 +209,9 @@ if ( ! function_exists('mesmerize_print_header_media')) {
     {
         $headerContent = mesmerize_get_front_page_header_media_and_partial();
         $mediaType     = $headerContent['media'];
+        
         do_action('mesmerize_print_header_media', $mediaType);
+        
         
     }
 }
@@ -223,17 +225,24 @@ function mesmerize_get_header_top_spacing_script()
     ob_start();
     ?>
     <script>
-        (function ($) {
+        (function () {
             function setHeaderTopSpacing() {
-                $('.header-wrapper .header,.header-wrapper .header-homepage').css({
-                    'padding-top': $('.header-top').height()
-                })
+
+                var headerTop = document.querySelector('.header-top');
+                document
+                    .querySelectorAll('.header-wrapper .header,.header-wrapper .header-homepage')
+                    .forEach(function (item) {
+                        item.style.paddingTop = headerTop.getBoundingClientRect().height + "px";
+                    });
             }
 
-            jQuery(window).on('resize orientationchange', setHeaderTopSpacing);
+            window.addEventListener('resize', setHeaderTopSpacing);
+
+            window.addEventListener('resize', setHeaderTopSpacing);
+
             window.mesmerizeSetHeaderTopSpacing = setHeaderTopSpacing
 
-        })(jQuery);
+        })();
     </script>
     <?php
     

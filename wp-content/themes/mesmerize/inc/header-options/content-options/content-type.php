@@ -5,7 +5,7 @@ function mesmerize_get_column_width_kirki_output($selector, $args = array(), $js
 
     $result = array();
     $base   = array_merge(array(
-        "element"     => $selector,
+        "element"     => ".header-wrapper > div:not(.owl-carousel) {$selector}" ,
         "property"    => null,
         "units"       => "%",
         "media_query" => null,

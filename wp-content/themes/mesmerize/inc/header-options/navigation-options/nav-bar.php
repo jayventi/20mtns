@@ -8,9 +8,10 @@ add_action("mesmerize_customize_register_options", function () {
 
 function mesmerize_navigation_general_options($inner = false)
 {
-    $priority = 1;
-    $section  = $inner ? "inner_page_navigation" : "front_page_navigation";
-    $prefix   = $inner ? "inner_header" : "header";
+    $priority       = 1;
+    $section        = $inner ? "inner_page_navigation" : "front_page_navigation";
+    $prefix         = $inner ? "inner_header" : "header";
+    $selector_start = $inner ? ".mesmerize-inner-page" : ".mesmerize-front-page";
 
     mesmerize_add_kirki_field(array(
         'type'     => 'sectionseparator',
@@ -86,13 +87,13 @@ function mesmerize_navigation_general_options($inner = false)
         'transport'       => 'postMessage',
         "output"          => array(
             array(
-                'element'  => '.navigation-bar.bordered',
+                'element'  => "{$selector_start} .navigation-bar.bordered",
                 'property' => 'border-bottom-color',
             ),
         ),
         'js_vars'         => array(
             array(
-                'element'  => '.navigation-bar.bordered',
+                'element'  => "{$selector_start} .navigation-bar.bordered",
                 'property' => 'border-bottom-color',
                 'function' => 'css',
             ),
@@ -122,25 +123,25 @@ function mesmerize_navigation_general_options($inner = false)
         'transport'       => 'postMessage',
         "output"          => array(
             array(
-                'element'  => '.navigation-bar.bordered',
+                'element'  => "{$selector_start} .navigation-bar.bordered",
                 'property' => 'border-bottom-width',
                 'suffix'   => 'px',
             ),
             array(
-                'element'       => '.navigation-bar.bordered',
+                'element'       => "{$selector_start} .navigation-bar.bordered",
                 'property'      => 'border-bottom-style',
                 'value_pattern' => 'solid',
             ),
         ),
         'js_vars'         => array(
             array(
-                'element'  => '.navigation-bar.bordered',
+                'element'  => "{$selector_start} .navigation-bar.bordered",
                 'property' => 'border-bottom-width',
                 'suffix'   => 'px',
                 'function' => 'css',
             ),
             array(
-                'element'       => '.navigation-bar.bordered',
+                'element'       => "{$selector_start} .navigation-bar.bordered",
                 'property'      => 'border-bottom-style',
                 'function'      => 'css',
                 'value_pattern' => 'solid',

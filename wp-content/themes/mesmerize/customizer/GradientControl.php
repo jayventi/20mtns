@@ -2,7 +2,6 @@
 
 namespace Mesmerize;
 
-
 class GradientControl extends \Kirki_Customize_Control
 {
     public $type = 'gradient-control';

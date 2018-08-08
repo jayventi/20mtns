@@ -225,10 +225,22 @@ function mesmerize_single_item_title()
 
 function mesmerize_mod_default($name)
 {
-    $defaults       = mesmerize_theme_defaults();
-    $current_preset = get_theme_mod('theme_default_preset', WP_DEBUG ? 2 : 1);
+    if (mesmerize_has_in_memory('mesmerize_mod_default')) {
+        $defaults = mesmerize_get_from_memory('mesmerize_mod_defaults');
+    } else {
+        $defaults       = mesmerize_theme_defaults();
+        $current_preset = get_theme_mod('theme_default_preset', WP_DEBUG ? 3 : 1);
+        if (mesmerize_is_wporg_preview()) {
+            $current_preset = 3;
+        }
+        
+        $defaults = $defaults[$current_preset];
+        
+        mesmerize_set_in_memory('mesmerize_mod_defaults', $defaults);
+    }
     
-    return $defaults[$current_preset][$name];
+    
+    return $defaults[$name];
 }
 
 
@@ -354,6 +366,10 @@ function mesmerize_print_archive_entry_class()
     $hasBigClass  = (is_sticky() || ($index === 0 && apply_filters('mesmerize_archive_post_highlight', true)));
     $showBigEntry = (is_archive() || is_home());
     
+    if (mesmerize_is_wporg_preview()) {
+        $hasBigClass = false;
+    }
+    
     if ($showBigEntry && $hasBigClass) {
         $classes[] = "col-sm-12 col-md-12";
     } else {
@@ -408,9 +424,11 @@ function mesmerize_print_post_thumb($classes = "")
                 the_post_thumbnail();
             } else {
                 $placeholder_color = get_theme_mod('blog_post_thumb_placeholder_color', mesmerize_get_theme_colors('color2'));
-                $placeholder_color = str_replace('#', '', $placeholder_color);
+                $placeholder_color = maybe_hash_hex_color($placeholder_color);
                 ?>
-                <img src="<?php echo esc_url('https://placehold.it/380X220/' . esc_attr($placeholder_color) . '/ffffff?text=%20'); ?>"
+                <svg class="mesmerize-post-list-item-thumb-placeholder" width="890" height="580" viewBox="0 0 890 580" preserveAspectRatio="none">
+                    <rect width="890" height="580" style="fill:<?php echo esc_attr($placeholder_color); ?>;"></rect>
+                </svg>
             <?php } ?>
         </a>
     </div>
@@ -419,6 +437,7 @@ function mesmerize_print_post_thumb($classes = "")
 
 function mesmerize_is_customize_preview()
 {
+    
     $is_preview = (function_exists('is_customize_preview') && is_customize_preview());
     
     if ( ! $is_preview) {
@@ -427,16 +446,6 @@ function mesmerize_is_customize_preview()
     
     return $is_preview;
     
-}
-
-function mesmerize_can_show_cached_style()
-{
-    if (mesmerize_is_customize_preview() || wp_doing_ajax()) {
-        return false;
-    }
-    
-    $result = (intval(get_option('mesmerize_has_cached_style', false)) !== 0);
-    return $result;
 }
 
 
@@ -448,3 +457,26 @@ function mesmerize_add_script_data($handle, $key, $data, $position = 'before')
     
     wp_add_inline_script($handle, $script, $position);
 }
+
+
+add_filter('mesmerize_header', function ($header) {
+    
+    $can_show = (get_theme_mod('show_front_page_hero_by_default', false) || mesmerize_is_wporg_preview());
+    
+    if (is_front_page() && $can_show) {
+        return "homepage";
+    }
+    
+    return $header;
+});
+
+add_filter('mesmerize_is_front_page', function ($value) {
+    
+    $can_show = (get_theme_mod('show_front_page_hero_by_default', false) || mesmerize_is_wporg_preview());
+    
+    if (is_front_page() && $can_show) {
+        $value = true;
+    }
+    
+    return $value;
+});

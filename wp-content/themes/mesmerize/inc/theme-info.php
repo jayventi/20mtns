@@ -7,7 +7,9 @@ $tabs = apply_filters('mesmerize_info_page_tabs', array(
 
 ));
 
-$currentTab = (isset($_REQUEST['tab']) && isset($tabs[$_REQUEST['tab']])) ? $_REQUEST['tab'] : 'getting-started';
+if ( ! isset($tabs[$currentTab])) {
+    $currentTab = 'getting-started';
+}
 
 ?>
 
@@ -20,7 +22,7 @@ $currentTab = (isset($_REQUEST['tab']) && isset($tabs[$_REQUEST['tab']])) ? $_RE
     <h2 class="nav-tab-wrapper wp-clearfix">
         
         <?php foreach ($tabs as $tabID => $tab): ?>
-            <a href="?page=mesmerize-welcome&tab=<?php echo $tabID; ?>" class="nav-tab <?php echo($tabID === $currentTab ? 'nav-tab-active' : '') ?>"><?php esc_html_e($tab['title']) ?></a>
+            <a href="?page=mesmerize-welcome&tab=<?php echo $tabID; ?>" class="nav-tab <?php echo($tabID === $currentTab ? 'nav-tab-active' : '') ?>"><?php echo $tab['title']; ?></a>
             <?php $first = false; ?>
         <?php endforeach; ?>
     </h2>

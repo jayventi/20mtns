@@ -1,4 +1,4 @@
-# My 20mtn.com git Ignore file 
+# My 20mtn.com git Ignore file and dirs
 # Thanks to: https://gist.github.com/jdbartlett/444295
 
 # Ignore everything in the root except the "wp-content" directory.
